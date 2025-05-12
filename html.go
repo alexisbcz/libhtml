@@ -2269,6 +2269,22 @@ func Meta(children ...Node) *meta {
 	return &meta{NewTag("meta", true, children)}
 }
 
+// Name sets the "name" attribute
+// Returns the element itself to enable method chaining
+func (e *meta) Name(value string) *meta {
+	e.Attribute("name", value)
+	return e
+}
+
+// NameIf conditionally sets the "name" attribute
+// Only sets the attribute if the condition is true
+func (e *meta) NameIf(condition bool, value string) *meta {
+	if condition {
+		e.Attribute("name", value)
+	}
+	return e
+}
+
 // Content sets the "content" attribute
 // Returns the element itself to enable method chaining
 func (e *meta) Content(value string) *meta {
@@ -2284,6 +2300,8 @@ func (e *meta) ContentIf(condition bool, value string) *meta {
 	}
 	return e
 }
+
+// Content sets the "content" attribute
 
 // Charset sets the "charset" attribute
 // Returns the element itself to enable method chaining
