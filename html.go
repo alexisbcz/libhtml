@@ -1059,6 +1059,22 @@ func (e *button) ValueIf(condition bool, value string) *button {
 	return e
 }
 
+// Type sets the "type" attribute
+// Returns the element itself to enable method chaining
+func (e *button) Type(value string) *button {
+	e.Attribute("type", value)
+	return e
+}
+
+// TypeIf conditionally sets the "type" attribute
+// Only sets the attribute if the condition is true
+func (e *button) TypeIf(condition bool, value string) *button {
+	if condition {
+		e.Attribute("type", value)
+	}
+	return e
+}
+
 // Name sets the "name" attribute
 // Returns the element itself to enable method chaining
 func (e *button) Name(value string) *button {
