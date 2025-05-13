@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"html"
 	"io"
+	"strings"
 )
 
 // Attribute represents HTML element attributes
@@ -1435,6 +1436,22 @@ type div struct {
 	*Tag
 }
 
+// Class sets the "class" attribute
+// Returns the element itself to enable method chaining
+func (e *div) Class(values ...string) *div {
+	e.Attribute("class", strings.Join(values, " "))
+	return e
+}
+
+// ClassIf conditionally sets the "class" attribute
+// Only sets the attribute if the condition is true
+func (e *div) ClassIf(condition bool, value string) *div {
+	if condition {
+		e.Attribute("class", value)
+	}
+	return e
+}
+
 // Div creates a new div element
 // Allows optional child nodes to be passed during creation
 func Div(children ...Node) *div {
@@ -2199,6 +2216,38 @@ type link struct {
 	*Tag
 }
 
+// Rel sets the "rel" attribute
+// Returns the element itself to enable method chaining
+func (e *link) Rel(value string) *link {
+	e.Attribute("rel", value)
+	return e
+}
+
+// RelIf conditionally sets the "rel" attribute
+// Only sets the attribute if the condition is true
+func (e *link) RelIf(condition bool, value string) *link {
+	if condition {
+		e.Attribute("rel", value)
+	}
+	return e
+}
+
+// Href sets the "href" attribute
+// Returns the element itself to enable method chaining
+func (e *link) Href(value string) *link {
+	e.Attribute("href", value)
+	return e
+}
+
+// HrefIf conditionally sets the "href" attribute
+// Only sets the attribute if the condition is true
+func (e *link) HrefIf(condition bool, value string) *link {
+	if condition {
+		e.Attribute("href", value)
+	}
+	return e
+}
+
 // Link creates a new link element
 // Allows optional child nodes to be passed during creation
 func Link(children ...Node) *link {
@@ -2225,6 +2274,22 @@ func (e *link) IntegrityIf(condition bool, value string) *link {
 type main struct {
 	// Embeds the base Tag to inherit core HTML element functionality
 	*Tag
+}
+
+// Class sets the "Class" attribute
+// Returns the element itself to enable method chaining
+func (e *main) Class(value string) *main {
+	e.Attribute("class", value)
+	return e
+}
+
+// ClassIf conditionally sets the "Class" attribute
+// Only sets the attribute if the condition is true
+func (e *main) ClassIf(condition bool, value string) *main {
+	if condition {
+		e.Attribute("class", value)
+	}
+	return e
 }
 
 // Main creates a new main element
@@ -2300,8 +2365,6 @@ func (e *meta) ContentIf(condition bool, value string) *meta {
 	}
 	return e
 }
-
-// Content sets the "content" attribute
 
 // Charset sets the "charset" attribute
 // Returns the element itself to enable method chaining
@@ -2731,6 +2794,38 @@ func (e *script) Nomodule(value string) *script {
 func (e *script) NomoduleIf(condition bool, value string) *script {
 	if condition {
 		e.Attribute("nomodule", value)
+	}
+	return e
+}
+
+// Type sets the "type" attribute
+// Returns the element itself to enable method chaining
+func (e *script) Type(value string) *script {
+	e.Attribute("type", value)
+	return e
+}
+
+// TypeIf conditionally sets the "type" attribute
+// Only sets the attribute if the condition is true
+func (e *script) TypeIf(condition bool, value string) *script {
+	if condition {
+		e.Attribute("type", value)
+	}
+	return e
+}
+
+// Src sets the "src" attribute
+// Returns the element itself to enable method chaining
+func (e *script) Src(value string) *script {
+	e.Attribute("src", value)
+	return e
+}
+
+// SrcIf conditionally sets the "src" attribute
+// Only sets the attribute if the condition is true
+func (e *script) SrcIf(condition bool, value string) *script {
+	if condition {
+		e.Attribute("Src", value)
 	}
 	return e
 }
