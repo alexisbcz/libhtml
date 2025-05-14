@@ -45,6 +45,9 @@ func (d *document) Render(w io.Writer) (err error) {
 		return err
 	}
 	for _, child := range d.children {
+		if child == nil {
+			continue
+		}
 		if err := child.Render(w); err != nil {
 			return err
 		}
@@ -246,6 +249,9 @@ func Group(children ...Node) Node {
 // Render implements Node.Render for group
 func (g *group) Render(w io.Writer) error {
 	for _, child := range g.children {
+		if child == nil {
+			continue
+		}
 		if err := child.Render(w); err != nil {
 			return err
 		}
@@ -309,6 +315,9 @@ func (e *Tag) Render(w io.Writer) error {
 
 	// Render all children
 	for _, child := range e.children {
+		if child == nil {
+			continue
+		}
 		if err := child.Render(w); err != nil {
 			return err
 		}
