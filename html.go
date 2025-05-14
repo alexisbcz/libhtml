@@ -331,7 +331,19 @@ func (e *Tag) Render(w io.Writer) error {
 // Attribute adds or updates an attribute for the tag
 // Allows method chaining for fluent interface
 func (t *Tag) Attribute(key, value string) *Tag {
+	if value == "" {
+		return t
+	}
 	t.attributes[key] = value
+	return t
+}
+
+// Attribute adds or updates an attribute for the tag
+// Allows method chaining for fluent interface
+func (t *Tag) AttributeIf(cond bool, key, value string) *Tag {
+	if cond {
+		t.attributes[key] = value
+	}
 	return t
 }
 
@@ -1568,6 +1580,22 @@ func Form(children ...Node) *form {
 	return &form{NewTag("form", false, children)}
 }
 
+// Id sets the "id" attribute
+// Returns the element itself to enable method chaining
+func (e *form) Id(value string) *form {
+	e.Attribute("id", value)
+	return e
+}
+
+// IdIf conditionally sets the "id" attribute
+// Only sets the attribute if the condition is true
+func (e *form) IdIf(condition bool, value string) *form {
+	if condition {
+		e.Attribute("id", value)
+	}
+	return e
+}
+
 // Action sets the "action" attribute
 // Returns the element itself to enable method chaining
 func (e *form) Action(value string) *form {
@@ -2022,6 +2050,20 @@ type input struct {
 // Allows optional child nodes to be passed during creation
 func Input(children ...Node) *input {
 	return &input{NewTag("input", true, children)}
+}
+
+// Name sets the "name" attribute
+// Returns the element itself to enable method chaining
+func (e *input) Name(values ...string) *input {
+	e.Attribute("name", strings.Join(values, " "))
+	return e
+}
+
+// NameIf conditionally sets the "name" attribute
+// Only sets the attribute if the condition is true
+func (e *input) NameIf(condition bool, value string) *input {
+	e.Attribute("name", value)
+	return e
 }
 
 // Id sets the "id" attribute
