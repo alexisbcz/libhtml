@@ -5,6 +5,7 @@ import (
 	"io"
 	"iter"
 	"maps"
+	"reflect"
 	"slices"
 )
 
@@ -173,3 +174,18 @@ func (s *SwitchBuilder[T]) renderTo(r *renderer) { Fragment{s.result}.renderTo(r
 // Fragment returns the selected child as a fragment, so props selected by a
 // switch are applied to the enclosing element.
 func (s *SwitchBuilder[T]) Fragment() Fragment { return Fragment{s.result} }
+
+// IsNil reports whether v is nil or a nil pointer, map, slice, func,
+// channel or interface wrapped in a non-nil interface. If(false, x) with a
+// component builder returns such a typed nil (a nil *Builder); children
+// that are typed nils render as nothing, like nil.
+func IsNil(v any) bool {
+	if v == nil {
+		return true
+	}
+	switch rv := reflect.ValueOf(v); rv.Kind() {
+	case reflect.Pointer, reflect.Map, reflect.Slice, reflect.Func, reflect.Chan, reflect.Interface, reflect.UnsafePointer:
+		return rv.IsNil()
+	}
+	return false
+}

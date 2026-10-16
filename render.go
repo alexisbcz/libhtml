@@ -108,6 +108,9 @@ func (r *renderer) node(n Node) {
 	case renderable:
 		v.renderTo(r)
 	default:
+		if IsNil(n) {
+			break
+		}
 		if err := n.Render(r); err != nil {
 			r.fail(err)
 		}

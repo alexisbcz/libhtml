@@ -67,7 +67,10 @@ func (b *Builder[T]) add(acc ChildAcceptor, c any) {
 		}
 		return
 	}
-	if acc != nil && c != nil && acc.AcceptChild(c) {
+	if IsNil(c) {
+		return
+	}
+	if acc != nil && acc.AcceptChild(c) {
 		return
 	}
 	b.el.add(c)

@@ -310,7 +310,9 @@ func (e *Element) add(c any) {
 	case interface{ Fragment() Fragment }:
 		e.add(v.Fragment())
 	case Node:
-		e.children = append(e.children, v)
+		if !IsNil(v) {
+			e.children = append(e.children, v)
+		}
 	case []Node:
 		for _, x := range v {
 			e.add(x)
